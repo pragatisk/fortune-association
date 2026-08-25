@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Events{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center;">Add Events</h1>
+
+<form action="{{ url_for('add_event') }}" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div id="eventContainer">
+        <div class="event-details">  
+            <div>
+                <label>Academic ID</label>
+                <input type="text" name="academic_id" placeholder="Enter academic_id" required>
+            </div>
+
+            <div>
+                <label>Event Name</label>
+                <input type="text" name="event_name" placeholder="Enter event name" required>
+            </div>
+
+            <div>
+                <label>Event Category</label>
+                <select name="event_category">
+                    <option value="Cultural">Cultural</option>
+                    <option value="Technical">Technical</option>
+                    <option value="Sports">Sports</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Event Date</label>
+                <input type="date" name="event_date" required>
+            </div>
+
+            <div>
+                <label>Report Link</label>
+                <input type="url" name="report" placeholder="Enter report link">
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top:20px; text-align:center;">
+        <button type="submit">Submit</button>
+    </div>
+</form>
+
+<style>
+.event-details {
+    margin-top: 23px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: white;
+}
+.event-details label {
+    font-weight: bold;
+}
+.event-details input,
+.event-details select {
+    width: 100%;
+    padding: 8px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+</style>
+{% endblock %}

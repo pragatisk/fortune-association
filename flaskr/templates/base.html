@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fortune Association{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        /* ---------- Global ---------- */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to right, #a6b8f6, #b4aef9, rgb(207, 179, 253));
+            background-size: 400% 400%;
+            animation: gradient 10s ease-in-out infinite;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ---------- Navbar ---------- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.6);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        nav ul li a:hover {
+            color: #feb47b;
+        }
+
+        /* ---------- User Dropdown ---------- */
+        .user-menu {
+            cursor: pointer;
+        }
+
+        .user-icon {
+            font-size: 22px;
+            color: white;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 35px;
+            background: white;
+            min-width: 160px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .dropdown li {
+            padding: 10px;
+            text-align: left;
+            list-style: none;
+        }
+
+        .dropdown li a {
+            color: black;
+            font-size: 15px;
+        }
+
+        .dropdown li:hover {
+            background: #f2f2f2;
+        }
+
+        .user-menu:hover .dropdown {
+            display: block;
+        }
+
+        /* ---------- Page Container ---------- */
+        .container {
+            margin-top: 90px;
+            width: 90%;
+            max-width: 1200px;
+            flex: 1;
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            width: 100%;
+            background: rgba(0,0,0,0.6);
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About Us</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+
+        {% if session.get('user_id') %}
+            {% if session.get('role') == 'admin' %}
+                <!-- Admin Links -->
+                <li><a href="{{ url_for('add_academics') }}">Add Academics</a></li>
+                <li><a href="{{ url_for('list_academics') }}">Academics</a></li>
+                <li><a href="{{ url_for('add_event') }}">Add Event</a></li>
+                <li><a href="{{ url_for('current_events_admin') }}">Manage Events</a></li>
+                <li><a href="{{ url_for('current_events') }}">Current Events</a></li>
+
+            {% elif session.get('role') == 'student' %}
+                <!-- Student Links -->
+                <li><a href="{{ url_for('current_events') }}">Current Events</a></li>
+            {% endif %}
+        {% endif %}
+
+        <!-- User Icon Dropdown -->
+        <li class="user-menu">
+            <span class="user-icon">👤</span>
+            <ul class="dropdown">
+                {% if session.get('user_id') %}
+                    <li><strong>{{ session.get('role')|capitalize }}</strong></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login_page') }}">Login</a></li>
+                    <li><a href="{{ url_for('signup') }}">Signup</a></li>
+                {% endif %}
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+    &copy; Fortune Association 2024
+</footer>
+
+</body>
+</html>

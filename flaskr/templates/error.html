@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Error - Student Login{% endblock %}
+
+{% block content %}
+<style>
+    .error-container {
+        width: 300px;
+        background: #fff;
+        padding: 40px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: containerAnim 1s ease-in-out;
+        margin: 60px auto; /* Centered below navbar */
+        text-align: center;
+    }
+
+    @keyframes containerAnim {
+        0% { transform: scale(0.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+</style>
+
+<div class="error-container">
+    <p>User does not exist! Login again</p>
+    <a href="{{ url_for('login_page') }}">Student Login</a>
+</div>
+{% endblock %}
