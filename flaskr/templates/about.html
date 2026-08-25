@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header class="about-header">
+        <h1>About Us</h1>
+    </header>
+
+    <section class="about-us">
+        <h2>FORTUNE ASSOCIATION</h2>
+        <p>
+            Fortune Association is a community of the Computer Science and Engineering
+            department where students share their passion for cultural, technical,
+            and sports events. Our mission is to bring students together and create
+            a platform to showcase their talents and skills.
+        </p>
+
+        <h2>Our Events</h2>
+        <div class="event-cards">
+            <div class="event-card">
+                <h3>Cultural Events</h3>
+                <p>
+                    We organize cultural events that celebrate diversity through
+                    music, dance, and art performances.
+                </p>
+            </div>
+            <div class="event-card">
+                <h3>Technical Events</h3>
+                <p>
+                    We host technical events where innovators and thinkers showcase
+                    ideas and projects.
+                </p>
+            </div>
+            <div class="event-card">
+                <h3>Sports Events</h3>
+                <p>
+                    We organize sports events that promote physical activity,
+                    teamwork, and competition.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="office-bearers">
+        <h2>FORTUNE OFFICE BEARERS 2022–23</h2>
+
+        <div class="office-bearers-slideshow">
+            {% set members = [
+                ("Association Coordinator", ["Mrs. Rajeshwari S G"]),
+                ("President", ["Mr. Jagadish Arali"]),
+                ("Vice-President", ["Ms. Meghana M"]),
+                ("General Secretary", ["Ms. Goutami M"]),
+                ("Joint Secretary", ["Ms. Meghana M"]),
+                ("Treasurer", ["Mr. Vinayak M", "Mr. Pratap M"]),
+                ("Joint Treasurer", ["Ms. Tejawini"]),
+                ("Technical Coordinators", ["Mr. Rahul H", "Ms. Tanusha Limbikai"]),
+                ("Cultural Coordinators", ["Ms. Goutami M", "Ms. Keerti Jyoti", "Mr. Prasad Dani"]),
+                ("Sports Coordinators", ["Mr. Md. Kaif Y", "Mr. Megharaj H Bentur"]),
+                ("Documentation Coordinators", ["Ms. Priyanka K Mulgund", "Ms. Shweta S Kummur"]),
+                ("Executive Members", ["Ms. Kaveri K", "Mr. Guruprasad"])
+            ] %}
+
+            {% for role, names in members %}
+            <div class="office-bearers-slide {% if loop.index0 == 0 %}active{% else %}inactive{% endif %}">
+                <div class="office-bearers-slide-content">
+                    <h3>{{ role }}</h3>
+                    {% for name in names %}
+                        <p>{{ name }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+<style>
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.about-header {
+    background: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.event-cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.event-card {
+    background: #f7f7f7;
+    padding: 15px;
+    flex: 1;
+    border-radius: 6px;
+    transition: transform 0.3s;
+}
+
+.event-card:hover {
+    transform: translateY(-8px);
+}
+
+.office-bearers {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.office-bearers-slideshow {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.office-bearers-slide {
+    position: absolute;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.office-bearers-slide.active {
+    transform: translateX(0);
+}
+
+.office-bearers-slide.inactive {
+    transform: translateX(-100%);
+}
+</style>
+
+<script>
+const slides = document.querySelectorAll('.office-bearers-slide');
+let currentSlide = 0;
+
+setInterval(() => {
+    slides[currentSlide].classList.remove('active');
+    slides[currentSlide].classList.add('inactive');
+
+    currentSlide = (currentSlide + 1) % slides.length;
+
+    slides[currentSlide].classList.add('active');
+    slides[currentSlide].classList.remove('inactive');
+}, 3000);
+</script>
+{% endblock %}

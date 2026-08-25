@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Current Events{% endblock %}
+
+{% block content %}
+<h2 style="text-align:center;">Current Events</h2>
+
+<table>
+    <tr style="text-align: center;">
+        <th>Category</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>About</th>
+        <th>Register</th>
+
+        {% if role == 'admin' %}
+        <th>Actions</th>
+        {% endif %}
+    </tr>
+
+    {% for item in data %}
+    <tr style="text-align:center;">
+        <td>{{ item.ecategory }}</td>
+        <td>{{ item.ename }}</td>
+        <td>{{ item.edate }}</td>
+        <td>{{ item.etime }}</td>
+        <td>{{ item.about }}</td>
+        <td>
+            <a href="{{ item.registration_link }}" target="_blank">Register</a>
+        </td>
+
+        {% if role == 'admin' %}
+        <td>
+            <a href="{{ url_for('edit_event', event_id=item.id) }}">Edit</a> |
+            <form action="{{ url_for('delete_event', event_id=item.id) }}" method="POST" style="display:inline;"
+                  onsubmit="return confirm('Delete this event?')">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" style="background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;padding:0;font:inherit;">Delete</button>
+            </form>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+{% endblock %}

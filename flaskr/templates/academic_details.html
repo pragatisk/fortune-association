@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Academic Details{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center;">Academic Year Details</h1>
+
+<table id="eventTable">
+    <thead>
+        <tr>
+            <th>Event Id</th>
+            <th>Academic Id</th>
+            <th>Event Name</th>
+            <th>Event Category</th>
+            <th>Event Date</th>
+            <th>Report</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{ item.event_id }}</td>
+            <td>{{ item.academic_id }}</td>
+            <td>{{ item.event_name }}</td>
+            <td>{{ item.event_category }}</td>
+            <td>{{ item.event_date }}</td>
+            <td>
+                <a href="{{ item.report }}" target="_blank">
+                    View Report
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+{% endblock %}

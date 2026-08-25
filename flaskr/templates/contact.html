@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="contact-us-header">
+        <h1>Contact Us</h1>
+        <p>Get in touch with us for any queries or feedback</p>
+    </div>
+
+    <div class="coordinators">
+        <div class="coordinator full-width">
+            <h2>Association Coordinator</h2>
+            <p>Mrs. Rajeshwari S G</p>
+            <a href="tel:+919591316573" class="phone-number">+91 9591316573</a>
+        </div>
+
+        <div class="coordinator">
+            <h2>Cultural Coordinator</h2>
+            <p>Ms. Keerti Jyoti</p>
+            <a href="tel:+918425618979" class="phone-number">+91 8425618979</a>
+        </div>
+
+        <div class="coordinator">
+            <h2>Technical Coordinator</h2>
+            <p>Mr. Rahul H</p>
+            <a href="tel:+919765287365" class="phone-number">+91 9765287365</a>
+        </div>
+
+        <div class="coordinator">
+            <h2>Sports Coordinator</h2>
+            <p>Ms. Megharaj H Bentur</p>
+            <a href="tel:+917836392390" class="phone-number">+91 7836392390</a>
+        </div>
+    </div>
+
+    <div class="email-section">
+        <h2>Email Us</h2>
+        <p>fortuneassociation1@gmail.com</p>
+        <a href="mailto:fortuneassociation1@gmail.com" class="email-link">
+            Send us an email
+        </a>
+    </div>
+</div>
+
+<style>
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.contact-us-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.coordinators {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.coordinator {
+    width: 250px;
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+}
+
+.coordinator:hover {
+    transform: scale(1.05);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.phone-number,
+.email-link {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.phone-number:hover,
+.email-link:hover {
+    color: #23527c;
+}
+
+.email-section {
+    margin-top: 40px;
+    text-align: center;
+}
+</style>
+{% endblock %}

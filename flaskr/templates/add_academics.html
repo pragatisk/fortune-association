@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Academic Year{% endblock %}
+
+{% block content %}
+<div style="background: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; max-width: 400px; margin: 20px auto;">
+    <h2>Add Academic Year</h2>
+    <form action="{{ url_for('add_academics') }}" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="text" id="academic_year" name="academic_year" placeholder="Academic Year" required
+               style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
+        <button type="submit" style="padding: 10px; background-color: #4CAF50; color: white; 
+                border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Add Academic Year</button>
+    </form>
+</div>
+{% endblock %}

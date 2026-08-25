@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ 'Edit Current Event' if event else 'Manage Current Events' }}
+{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center;">
+    {{ 'Edit Current Event' if event else 'Add Current Events' }}
+</h1>
+
+<form
+    action="{% if event %}{{ url_for('edit_event', event_id=event.id) }}{% else %}{{ url_for('current_events_admin') }}{% endif %}"
+    method="POST"
+>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="event-details">
+        <div>
+            <label>Event Name</label>
+            <input
+                type="text"
+                name="event_name"
+                required
+                value="{{ event.ename if event }}"
+            >
+        </div>
+
+        <div>
+            <label>Event Category</label>
+            <select name="event_category">
+                <option value="Cultural" {% if event and event.ecategory == 'Cultural' %}selected{% endif %}>Cultural</option>
+                <option value="Technical" {% if event and event.ecategory == 'Technical' %}selected{% endif %}>Technical</option>
+                <option value="Sports" {% if event and event.ecategory == 'Sports' %}selected{% endif %}>Sports</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Event Date</label>
+            <input
+                type="date"
+                name="event_date"
+                required
+                value="{{ event.edate if event }}"
+            >
+        </div>
+
+        <div>
+            <label>Event Time</label>
+            <input
+                type="time"
+                name="event_time"
+                required
+                value="{{ event.etime if event }}"
+            >
+        </div>
+
+        <div>
+            <label>About Event</label>
+            <textarea name="event_about" required>{{ event.about if event }}</textarea>
+        </div>
+
+        <div>
+            <label>Registration Link</label>
+            <input
+                type="url"
+                name="event_registration_link"
+                value="{{ event.registration_link if event }}"
+            >
+        </div>
+    </div>
+
+    <div style="margin-top:20px; text-align:center;">
+        <button type="submit">
+            {{ 'Update Event' if event else 'Save Event' }}
+        </button>
+    </div>
+</form>
+
+<style>
+.event-details {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 6px;
+    background-color: white;
+}
+.event-details label {
+    font-weight: bold;
+}
+.event-details input,
+.event-details textarea,
+.event-details select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+}
+button {
+    padding: 10px 25px;
+    font-size: 14px;
+    cursor: pointer;
+}
+</style>
+{% endblock %}
