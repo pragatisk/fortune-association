@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <style>
+        :root {
+            --primary: #337ab7;
+            --primary-dark: #286090;
+            --accent: #feb47b;
+            --success: #4CAF50;
+            --danger: #b3261e;
+            --radius: 8px;
+        }
+
         /* ---------- Global ---------- */
         body {
             margin: 0;
@@ -54,10 +63,18 @@
             color: white;
             text-decoration: none;
             font-size: 17px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
         }
 
         nav ul li a:hover {
-            color: #feb47b;
+            color: var(--accent);
+        }
+
+        nav ul li a.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
         }
 
         /* ---------- User Dropdown ---------- */
@@ -97,7 +114,7 @@
             background: #f2f2f2;
         }
 
-        .user-menu:hover .dropdown {
+        .dropdown.open {
             display: block;
         }
 
@@ -124,23 +141,23 @@
 
 <nav>
     <ul>
-        <li><a href="{{ url_for('main.home') }}">Home</a></li>
-        <li><a href="{{ url_for('main.about') }}">About Us</a></li>
-        <li><a href="{{ url_for('main.contact') }}">Contact Us</a></li>
+        <li><a href="{{ url_for('main.home') }}" class="{{ 'active' if request.endpoint == 'main.home' else '' }}">Home</a></li>
+        <li><a href="{{ url_for('main.about') }}" class="{{ 'active' if request.endpoint == 'main.about' else '' }}">About Us</a></li>
+        <li><a href="{{ url_for('main.contact') }}" class="{{ 'active' if request.endpoint == 'main.contact' else '' }}">Contact Us</a></li>
 
         {% if session.get('user_id') %}
             {% if session.get('role') == 'admin' %}
                 <!-- Admin Links -->
-                <li><a href="{{ url_for('academics.add_academics') }}">Add Academics</a></li>
-                <li><a href="{{ url_for('academics.list_academics') }}">Academics</a></li>
-                <li><a href="{{ url_for('events.add_event') }}">Add Event</a></li>
-                <li><a href="{{ url_for('live.current_events_admin') }}">Manage Events</a></li>
-                <li><a href="{{ url_for('live.current_events') }}">Current Events</a></li>
-                <li><a href="{{ url_for('analytics.dashboard') }}">Analytics</a></li>
+                <li><a href="{{ url_for('academics.add_academics') }}" class="{{ 'active' if request.endpoint == 'academics.add_academics' else '' }}">Add Academics</a></li>
+                <li><a href="{{ url_for('academics.list_academics') }}" class="{{ 'active' if request.endpoint == 'academics.list_academics' else '' }}">Academics</a></li>
+                <li><a href="{{ url_for('events.add_event') }}" class="{{ 'active' if request.endpoint == 'events.add_event' else '' }}">Add Event</a></li>
+                <li><a href="{{ url_for('live.current_events_admin') }}" class="{{ 'active' if request.endpoint == 'live.current_events_admin' else '' }}">Manage Events</a></li>
+                <li><a href="{{ url_for('live.current_events') }}" class="{{ 'active' if request.endpoint == 'live.current_events' else '' }}">Current Events</a></li>
+                <li><a href="{{ url_for('analytics.dashboard') }}" class="{{ 'active' if request.endpoint == 'analytics.dashboard' else '' }}">Analytics</a></li>
 
             {% elif session.get('role') == 'student' %}
                 <!-- Student Links -->
-                <li><a href="{{ url_for('live.current_events') }}">Current Events</a></li>
+                <li><a href="{{ url_for('live.current_events') }}" class="{{ 'active' if request.endpoint == 'live.current_events' else '' }}">Current Events</a></li>
             {% endif %}
         {% endif %}
 
@@ -183,6 +200,26 @@
 <footer>
     &copy; Fortune Association 2024
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menu = document.querySelector('.user-menu');
+        const dropdown = document.querySelector('.user-menu .dropdown');
+
+        menu.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function () {
+            dropdown.classList.remove('open');
+        });
+
+        dropdown.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+    });
+</script>
 
 </body>
 </html>
