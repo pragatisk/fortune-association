@@ -14,8 +14,7 @@ CREATE TABLE IF NOT EXISTS academics (
     academic_year VARCHAR(9) NOT NULL UNIQUE
 );
 
--- CHANGED: event_id is now AUTO_INCREMENT instead of being typed in by the
--- admin on the Add Event form. This prevents duplicate/colliding IDs.
+-- event_id is auto-increment (not entered manually), so IDs never collide.
 CREATE TABLE IF NOT EXISTS events (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
     academic_id INT NOT NULL,
@@ -40,8 +39,3 @@ CREATE TABLE IF NOT EXISTS current_events (
     INDEX idx_current_events_date (edate)
 );
 
--- If you already have an existing "fortune_association" database with data
--- and event_id is NOT auto-increment yet, run this instead of recreating
--- the table (backs up nothing automatically — export your data first if it matters):
---
--- ALTER TABLE events MODIFY event_id INT AUTO_INCREMENT;
