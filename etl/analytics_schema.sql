@@ -23,5 +23,3 @@ CREATE TABLE IF NOT EXISTS analytics_etl_runs (
     status VARCHAR(20),
     notes VARCHAR(255)
 );
-
-select * from analytics_events_by_category;
