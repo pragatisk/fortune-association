@@ -124,22 +124,23 @@
 
 <nav>
     <ul>
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('about') }}">About Us</a></li>
-        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        <li><a href="{{ url_for('main.home') }}">Home</a></li>
+        <li><a href="{{ url_for('main.about') }}">About Us</a></li>
+        <li><a href="{{ url_for('main.contact') }}">Contact Us</a></li>
 
         {% if session.get('user_id') %}
             {% if session.get('role') == 'admin' %}
                 <!-- Admin Links -->
-                <li><a href="{{ url_for('add_academics') }}">Add Academics</a></li>
-                <li><a href="{{ url_for('list_academics') }}">Academics</a></li>
-                <li><a href="{{ url_for('add_event') }}">Add Event</a></li>
-                <li><a href="{{ url_for('current_events_admin') }}">Manage Events</a></li>
-                <li><a href="{{ url_for('current_events') }}">Current Events</a></li>
+                <li><a href="{{ url_for('academics.add_academics') }}">Add Academics</a></li>
+                <li><a href="{{ url_for('academics.list_academics') }}">Academics</a></li>
+                <li><a href="{{ url_for('events.add_event') }}">Add Event</a></li>
+                <li><a href="{{ url_for('live.current_events_admin') }}">Manage Events</a></li>
+                <li><a href="{{ url_for('live.current_events') }}">Current Events</a></li>
+                <li><a href="{{ url_for('analytics.dashboard') }}">Analytics</a></li>
 
             {% elif session.get('role') == 'student' %}
                 <!-- Student Links -->
-                <li><a href="{{ url_for('current_events') }}">Current Events</a></li>
+                <li><a href="{{ url_for('live.current_events') }}">Current Events</a></li>
             {% endif %}
         {% endif %}
 
@@ -149,10 +150,10 @@
             <ul class="dropdown">
                 {% if session.get('user_id') %}
                     <li><strong>{{ session.get('role')|capitalize }}</strong></li>
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('login_page') }}">Login</a></li>
-                    <li><a href="{{ url_for('signup') }}">Signup</a></li>
+                    <li><a href="{{ url_for('auth.login_page') }}">Login</a></li>
+                    <li><a href="{{ url_for('auth.signup') }}">Signup</a></li>
                 {% endif %}
             </ul>
         </li>
@@ -160,8 +161,24 @@
 </nav>
 
 <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
 </div>
+
+<style>
+.flash-messages { margin: 10px 0 20px; }
+.flash { padding: 12px 16px; border-radius: 6px; margin-bottom: 8px; font-size: 14px; }
+.flash-error { background: #fdecea; color: #b3261e; border: 1px solid #f5c2c0; }
+.flash-success { background: #e8f5e9; color: #1e7d32; border: 1px solid #b8e0bb; }
+</style>
 
 <footer>
     &copy; Fortune Association 2024

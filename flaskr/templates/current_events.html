@@ -31,8 +31,8 @@
 
         {% if role == 'admin' %}
         <td>
-            <a href="{{ url_for('edit_event', event_id=item.id) }}">Edit</a> |
-            <form action="{{ url_for('delete_event', event_id=item.id) }}" method="POST" style="display:inline;"
+            <a href="{{ url_for('live.edit_event', event_id=item.id) }}">Edit</a> |
+            <form action="{{ url_for('live.delete_event', event_id=item.id) }}" method="POST" style="display:inline;"
                   onsubmit="return confirm('Delete this event?')">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit" style="background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;padding:0;font:inherit;">Delete</button>
@@ -43,7 +43,23 @@
     {% endfor %}
 </table>
 
+{% if total_pages > 1 %}
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="{{ url_for('live.current_events', page=page-1) }}">&laquo; Prev</a>
+    {% endif %}
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    {% if page < total_pages %}
+        <a href="{{ url_for('live.current_events', page=page+1) }}">Next &raquo;</a>
+    {% endif %}
+</div>
+{% endif %}
+
 <style>
+.pagination { display:flex; justify-content:center; align-items:center; gap:16px; margin-top:18px; }
+.pagination a { color:white; background:#337ab7; padding:8px 14px; border-radius:5px; text-decoration:none; }
+.pagination a:hover { background:#286090; }
+.pagination span { color:#333; font-weight:bold; }
 table {
     width: 100%;
     border-collapse: collapse;
