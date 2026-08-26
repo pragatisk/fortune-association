@@ -7,13 +7,29 @@
 
 <div class="academic-list">
     {% for academic in academics %}
-        <a href="{{ url_for('academic_details', academic_id=academic['academic_id']) }}" class="btn">
+        <a href="{{ url_for('events.academic_details', academic_id=academic['academic_id']) }}" class="btn">
             {{ academic['academic_year'] }}
         </a>
     {% endfor %}
 </div>
 
+{% if total_pages > 1 %}
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="{{ url_for('academics.list_academics', page=page-1) }}">&laquo; Prev</a>
+    {% endif %}
+    <span>Page {{ page }} of {{ total_pages }}</span>
+    {% if page < total_pages %}
+        <a href="{{ url_for('academics.list_academics', page=page+1) }}">Next &raquo;</a>
+    {% endif %}
+</div>
+{% endif %}
+
 <style>
+.pagination { display:flex; justify-content:center; align-items:center; gap:16px; margin-top:18px; }
+.pagination a { color:white; background:#337ab7; padding:8px 14px; border-radius:5px; text-decoration:none; }
+.pagination a:hover { background:#286090; }
+.pagination span { color:#333; font-weight:bold; }
 .academic-list {
     margin-top: 30px;
     display: flex;

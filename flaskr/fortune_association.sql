@@ -39,3 +39,9 @@ CREATE TABLE IF NOT EXISTS current_events (
     registration_link VARCHAR(255),
     INDEX idx_current_events_date (edate)
 );
+
+-- If you already have an existing "fortune_association" database with data
+-- and event_id is NOT auto-increment yet, run this instead of recreating
+-- the table (backs up nothing automatically — export your data first if it matters):
+--
+-- ALTER TABLE events MODIFY event_id INT AUTO_INCREMENT;

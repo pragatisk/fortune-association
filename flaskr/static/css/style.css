@@ -1,0 +1,3 @@
+/* All current styling lives inline in each template's <style> block.
+   This file exists so the <link> in base.html resolves instead of 404ing.
+   Future CSS cleanup can migrate the inline styles here. */

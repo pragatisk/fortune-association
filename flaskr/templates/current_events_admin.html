@@ -10,7 +10,7 @@
 </h1>
 
 <form
-    action="{% if event %}{{ url_for('edit_event', event_id=event.id) }}{% else %}{{ url_for('current_events_admin') }}{% endif %}"
+    action="{% if event %}{{ url_for('live.edit_event', event_id=event.id) }}{% else %}{{ url_for('live.current_events_admin') }}{% endif %}"
     method="POST"
 >
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

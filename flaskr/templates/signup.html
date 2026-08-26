@@ -46,7 +46,7 @@
 
 <div class="signup-container">
     <h2>Student Signup</h2>
-    <form action="/signup" method="POST">
+    <form action="{{ url_for('auth.signup') }}" method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="text" id="username" name="username" placeholder="Username" required><br>
         <input type="email" id="email" name="email" placeholder="Email" required><br>

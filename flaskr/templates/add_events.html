@@ -5,7 +5,7 @@
 {% block content %}
 <h1 style="text-align:center;">Add Events</h1>
 
-<form action="{{ url_for('add_event') }}" method="POST">
+<form action="{{ url_for('events.add_event') }}" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div id="eventContainer">
         <div class="event-details">  
